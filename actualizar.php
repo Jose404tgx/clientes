@@ -4,16 +4,20 @@ require 'conexion.php';
 if ($_POST) {
     $tipo = $_POST['tipo'];
 
-    if ($tipo == "categoria") {
-        $sql = "UPDATE categoria 
-                SET descripcion=:descripcion 
-                WHERE id_categoria=:id";
+
+    if ($tipo == "proveedor") {
+        $sql = "UPDATE proveedor 
+                SET razonsocial=:razon, direccion=:direccion, telefono=:telefono 
+                WHERE id_proveedor=:id";
         $stmt = $conexion->prepare($sql);
         $stmt->execute([
             ':id' => $_POST['id'],
-            ':descripcion' => $_POST['descripcion']
+            ':razon' => $_POST['razonsocial'],
+            ':direccion' => $_POST['direccion'],
+            ':telefono' => $_POST['telefono']
         ]);
     }
+
     echo "Registro actualizado";
 }
 ?>
@@ -23,10 +27,8 @@ if ($_POST) {
 <form method="POST">
     ID: <input type="number" name="id"><br>
 
-    <select name="tipo">
-        <option value="cliente">Cliente</option>
-        <option value="categoria">Categoría</option>
-        <option value="proveedor">Proveedor</option>
-    </select><br><br>
+    Descripción: <input type="text" name="descripcion"><br>
+    Razón Social: <input type="text" name="razonsocial"><br>
+
     <button type="submit">Actualizar</button>
 </form>
