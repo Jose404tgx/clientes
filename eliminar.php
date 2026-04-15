@@ -6,11 +6,9 @@ if ($_POST) {
     $id = $_POST['id'];
 
 
-    if ($tipo == "categoria") {
-        $sql = "DELETE FROM categoria WHERE id_categoria=:id";
+    if ($tipo == "proveedor") {
+        $sql = "DELETE FROM proveedor WHERE id_proveedor=:id";
     }
-
-  
 
     $stmt = $conexion->prepare($sql);
     $stmt->execute([':id' => $id]);
@@ -25,7 +23,8 @@ if ($_POST) {
     ID: <input type="number" name="id"><br>
 
     <select name="tipo">
-        <option value="categoria">Categoría</option>
+      
+        <option value="proveedor">Proveedor</option>
     </select><br><br>
 
     <button type="submit">Eliminar</button>
