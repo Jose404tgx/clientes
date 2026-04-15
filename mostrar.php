@@ -7,5 +7,7 @@ while($row = $stmt->fetch()){
     echo $row['nombre']. "<br>";
     echo $row['apellido']. "<br>";
     echo $row['direcion']. "<br>";
+    echo $row['telefono']. "<br>";
+
 }
 ?>
