@@ -2,28 +2,32 @@
 require 'conexion.php';
 
 if ($_POST) {
-    $tipo = $_POST['tipo'];
+    $nombres = $_POST['nombres'];
+    $apellidos = $_POST['apellidos'];
+    $direccion = $_POST['direccion'];
+    $telefono = $_POST['telefono'];
 
-    if ($tipo == "proveedor") {
-        $sql = "INSERT INTO proveedor(razonsocial, direccion, telefono) 
-                VALUES(:razon, :direccion, :telefono)";
-        $stmt = $conexion->prepare($sql);
-        $stmt->execute([
-            ':razon' => $_POST['razonsocial'],
-            ':direccion' => $_POST['direccion'],
-            ':telefono' => $_POST['telefono']
-        ]);
-    }
+    $sql = "INSERT INTO clientes(nombres, apellidos, direccion, telefono) 
+            VALUES(:nombres, :apellidos, :direccion, :telefono)";
 
-    echo "Registro insertado correctamente";
+    $stmt = $conexion->prepare($sql);
+    $stmt->execute([
+        ':nombres' => $nombres,
+        ':apellidos' => $apellidos,
+        ':direccion' => $direccion,
+        ':telefono' => $telefono
+    ]);
+
+    echo "Cliente insertado correctamente";
 }
 ?>
 
-<h2>Insertar</h2>
+<h2>Insertar Cliente</h2>
 
 <form method="POST">
-    <select name="tipo">
-    <!-- Proveedor -->
-
+    Nombres: <input type="text" name="nombres"><br>
+    Apellidos: <input type="text" name="apellidos"><br>
+    Dirección: <input type="text" name="direccion"><br>
+    Teléfono: <input type="text" name="telefono"><br>
     <button type="submit">Guardar</button>
 </form>
