@@ -4,13 +4,18 @@ require 'conexion.php';
 if ($_POST) {
     $tipo = $_POST['tipo'];
 
-    if ($tipo == "categoria") {
-        $sql = "INSERT INTO categoria(descripcion) VALUES(:descripcion)";
+    if ($tipo == "proveedor") {
+        $sql = "INSERT INTO proveedor(razonsocial, direccion, telefono) 
+                VALUES(:razon, :direccion, :telefono)";
         $stmt = $conexion->prepare($sql);
         $stmt->execute([
-            ':descripcion' => $_POST['descripcion']
+            ':razon' => $_POST['razonsocial'],
+            ':direccion' => $_POST['direccion'],
+            ':telefono' => $_POST['telefono']
         ]);
     }
+
+    echo "Registro insertado correctamente";
 }
 ?>
 
@@ -18,10 +23,7 @@ if ($_POST) {
 
 <form method="POST">
     <select name="tipo">
-        <option value="categoria">Categoría</option>
-    </select><br><br>
+    <!-- Proveedor -->
 
-    <!-- Categoria -->
-    Descripción: <input type="text" name="descripcion"><br>
     <button type="submit">Guardar</button>
 </form>
