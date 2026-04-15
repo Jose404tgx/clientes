@@ -2,33 +2,36 @@
 require 'conexion.php';
 
 if ($_POST) {
-    $tipo = $_POST['tipo'];
+    $id = $_POST['id'];
+    $nombres = $_POST['nombres'];
+    $apellidos = $_POST['apellidos'];
+    $direccion = $_POST['direccion'];
+    $telefono = $_POST['telefono'];
 
+    $sql = "UPDATE clientes 
+            SET nombres=:nombres, apellidos=:apellidos, direccion=:direccion, telefono=:telefono 
+            WHERE id=:id";
 
-    if ($tipo == "proveedor") {
-        $sql = "UPDATE proveedor 
-                SET razonsocial=:razon, direccion=:direccion, telefono=:telefono 
-                WHERE id_proveedor=:id";
-        $stmt = $conexion->prepare($sql);
-        $stmt->execute([
-            ':id' => $_POST['id'],
-            ':razon' => $_POST['razonsocial'],
-            ':direccion' => $_POST['direccion'],
-            ':telefono' => $_POST['telefono']
-        ]);
-    }
+    $stmt = $conexion->prepare($sql);
+    $stmt->execute([
+        ':id' => $id,
+        ':nombres' => $nombres,
+        ':apellidos' => $apellidos,
+        ':direccion' => $direccion,
+        ':telefono' => $telefono
+    ]);
 
-    echo "Registro actualizado";
+    echo "Cliente actualizado correctamente";
 }
 ?>
 
-<h2>Actualizar</h2>
+<h2>Actualizar Cliente</h2>
 
 <form method="POST">
     ID: <input type="number" name="id"><br>
-
-    Descripción: <input type="text" name="descripcion"><br>
-    Razón Social: <input type="text" name="razonsocial"><br>
-
+    Nombres: <input type="text" name="nombres"><br>
+    Apellidos: <input type="text" name="apellidos"><br>
+    Dirección: <input type="text" name="direccion"><br>
+    Teléfono: <input type="text" name="telefono"><br>
     <button type="submit">Actualizar</button>
 </form>
